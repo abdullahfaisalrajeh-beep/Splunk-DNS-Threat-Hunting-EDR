@@ -1,0 +1,4 @@
+index="vpn3" source="*DNS-Client/Operational" EventCode=3008  
+| rex field=_raw "the name (?<DomainName>[^,]+)"
+| where isnotnull(DomainName) AND NOT DomainName IN ("wpad","*.microsoft.com", "*.msn.com","*.t-msedge.net")
+| table _time,host,DomainName
